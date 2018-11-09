@@ -1,0 +1,14 @@
+{
+  "name": "07-nodejs-get-post-ejs",
+  "version": "1.0.0",
+  "description": "本模块主要学习nodejs静态文件托管、路由、get/post方法和ejs模板",
+  "main": "01-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1"
+  }
+}
