@@ -68,10 +68,29 @@ db.users.remove({age: 132});
 db.users.remove( { "borough": "Queens" }, { justOne: true } )
 
 #索引
+#创建索引的命令：
+db.user.ensureIndex({"username":1})
+#获取当前集合的索引：
+db.user.getIndexes()
+#删除索引的命令是：
+db.user.dropIndex({"username":1})
+#创建复合索引  数字1表示username键的索引按升序存储，-1表示age键的索引按照降序方式存储
+db.user.ensureIndex({"username":1, "age":-1})
+#在创建索引时为其指定索引名，如：
+db.user.ensureIndex({"username":1},{"name":"userindex"})
+#唯一索引
+db.user.ensureIndex({"userid":1},{"unique":true})
+#复合唯一索引
+db.user.ensureIndex({"userid":1,"age":1},{"unique":true})
+#为已有数据的文档创建索引时，可以执行下面的命令，以使MongoDB在后台创建索引
+db.user.ensureIndex({"username":1},{"background":true})
 
+#使用explain
+#  explain是非常有用的工具，会帮助你获得查询方面诸多有用的信息。
+#  只要对游标调用该方法，就可以得到查询细节。explain会返回一个文档，而不是游标本身
+#  explain会返回查询使用的索引情况，耗时和扫描文档数的统计信息
 
-
-
-
+#explain executionStats查询具体的执行时间
+db.tablename.find().explain( "executionStats" )
 #mongodb 允许每条数据的数据列不一致
 
