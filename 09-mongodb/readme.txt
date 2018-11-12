@@ -57,10 +57,15 @@ db.user.update({name:"小明"},{$set:{age:25}});
 db.user.update({sex:"男"}，{$set:{age:33}},{multi true});
 或者
 db.user.update({sex:"男"}，{age:33});
+db.users.update({name: 'Lisi'}, {$inc: {age: 50}}, false, true);
+相当于：update users set age = age + 50 where name = ‘Lisi’;
+db.users.update({name: 'Lisi'}, {$inc: {age: 50}, $set: {name: 'hoho'}}, false, true);
+相当于：update users set age = age + 50, name = ‘hoho’ where name = ‘Lisi’;
 
-
-
-
+#删除数据
+db.users.remove({age: 132});
+#只删除一条
+db.restaurants.remove( { "borough": "Queens" }, { justOne: true } )
 
 
 
