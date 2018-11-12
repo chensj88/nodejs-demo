@@ -65,8 +65,9 @@ db.users.update({name: 'Lisi'}, {$inc: {age: 50}, $set: {name: 'hoho'}}, false, 
 #删除数据
 db.users.remove({age: 132});
 #只删除一条
-db.restaurants.remove( { "borough": "Queens" }, { justOne: true } )
+db.users.remove( { "borough": "Queens" }, { justOne: true } )
 
+#索引
 
 
 
