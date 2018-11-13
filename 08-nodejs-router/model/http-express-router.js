@@ -61,7 +61,6 @@ const server = function () {
                 }
             })
         } else {
-            res.writeHead(200, {'Content-Type': 'text/html;charset="utf-8"'});
             res.send('路由不存在');
         }
 
