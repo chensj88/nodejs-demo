@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h2>这是一个ejs的后台模板引擎</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>用户名</td>
+                <td>密码</td>
+                <td>年龄</td>
+                <td>性别</td>
+                <td>入职时间</td>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+            for (var i = 0; i <usrList.length ; i++) {
+                %>
+                <tr>
+                    <td><%=usrList[i]._id%></td>
+                    <td><%=usrList[i].username%></td>
+                    <td><%=usrList[i].password%></td>
+                    <td><%=usrList[i].age%></td>
+                    <td><%=usrList[i].sex%></td>
+                    <td><%=usrList[i].entryDate%></td>
+                </tr>
+            <%
+            }
+            %>
+        </tbody>
+    </table>
+</body>
+</html>

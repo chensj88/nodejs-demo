@@ -50,7 +50,6 @@ const server = function () {
                 G['_' + method][reqUrl](req, res);
                 /*get方法获取数据*/
                 var query = url.parse(req.url, true).query;
-                res.send('获取 get 数据');
             }
         }else if(reqUrl === "/favicon.ico/" ){  /*读取图标*/
             fs.readFile('./static/img/logo.ico',function (err,data) {
