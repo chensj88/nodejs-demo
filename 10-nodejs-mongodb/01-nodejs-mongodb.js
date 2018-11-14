@@ -6,15 +6,24 @@ const assert = require('assert');
 /**
  * 1、配置依赖 cnpm install mongodb --save
  * 2、引入MongoClient 和创建数据库url
- *  var mongoClient = require('mongodb').$MongoClient;
- *  var url = 'mongodb://localhost:27017/nodejs';
+ *  const mongoClient = require('mongodb').$MongoClient;
+ *  const url = 'mongodb://localhost:27017';
+ *  const dbName = 'nodejs';
+ *  const client = new MongoClient(url);
  * 3、连接数据库
- * MongoClient.connect(url,function (err,client) {
+ * client.connect(function (err) {
  * })
  * 4、GUID数据
- * MongoClient.connect(url,function (err,client) {
- *  client.collection('user').insertOne({name:"zhangsan",age:25,password:"zhangsan123"});
- *  })
+ * client.connect(function(err) {
+ *   const db = client.db(dbName);
+ *   const username = "aaa";
+ *   const table = "test_user";
+ *   const collection = db.collection(table);
+ *   collection.insertOne({"username":"demo",age:25},function(err,result){
+ *
+ *   })
+ *   client.close();
+ * })
  *
  */
 
