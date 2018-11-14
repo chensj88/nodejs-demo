@@ -1,7 +1,13 @@
 const http = require('http');
 const app = require('./model/express-router');
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017/nodejs';
+
+const url = 'mongodb://localhost:27017';
+
+const dbName = 'nodejs';
+
+const client = new MongoClient(url);
+
 const assert = require('assert');
 /**
  * 1、配置依赖 cnpm install mongodb --save
@@ -37,50 +43,40 @@ app.get('/login',function (req,res) {
 //增加数据
 app.get('/add',function (req,res) {
     console.log('add');
-    MongoClient.connect(url,{useNewUrlParser:true},function (err,client) {
-        const db = client.db("nodejs");
-        if(err){
-            console.log(err);
-            console.log("数据库连接失败");
-        }else{
-            db.collection('user').insertOne(
-                {
-                    name:"zhangsan",
-                    age:25,
-                    password:"zhangsan123"
-                },function(er){
-                    if(er){
-                        console.log('增加数据失败');
-                    }else{
-                        console.log('增加数据成功');
-                    }
-                });
-        }
+    //连接数据库
+    client.connect(function (err) {
+        const db = client.db(dbName);
+        const collection = db.collection("nodejs_user");
+        collection.insertMany(createUserData('test'),function (err,result) {
+            assert.equal(err, null);
+            assert.equal(50, result.result.n);
+            assert.equal(50, result.ops.length);
+            console.log("Inserted 50 documents into the collection");
+        });
         client.close();
-    })
-    res.end('res adds');
-})
+        res.end('res adds');
+    });
 
-app.get('/find',function (req,res) {
-    console.log('find');
-    MongoClient.connect(url,{useNewUrlParser:true},function (err,client) {
-        const db = client.db("nodejs");
-        if(err){
-            console.log(err);
-            console.log("数据库连接失败");
-        }else{
-            var data = db.collection('user').find();
-            data.forEach(iterateFunc, errorFunc);
-        }
-        client.close();
-    })
 
-})
+});
 
-function iterateFunc(doc) {
-    console.log(JSON.stringify(doc, null, 4));
-}
 
-function errorFunc(error) {
-    console.log(error);
+const createUserData = function(name) {
+    var data = [];
+    for (var i = 0;i < 50;i++){
+        var username = name+i;
+        var password = name+"123";
+        var age = 20+i;
+        var sex = i % 2 == 0 ? "男" :"女";
+        var entryDate = new Date();
+        var user = {
+            username:username,
+            password:password,
+            age:age,
+            sex:sex,
+            entryDate:entryDate
+        };
+        data[i] = user;
+    }
+    return data;
 }
