@@ -34,7 +34,7 @@ const server = function () {
         }
         console.log(`当前请求路径${reqUrl},请求的方法${method}`);
         if (G['_' + method][reqUrl]) {  /*判断上述路由是否存在*/
-            if (method == 'post') { /*执行post请求*/
+            if (method === 'post') { /*执行post请求*/
                 /*post方法获取数据*/
                 var postData = '';
                 req.on('data', function (chunk) { /*post数据是按照块来读取的，data表示开始读取*/
@@ -52,7 +52,7 @@ const server = function () {
                 var query = url.parse(req.url, true).query;
                 res.send('获取 get 数据');
             }
-        }else if(reqUrl =="/favicon.ico/" ){  /*读取图标*/
+        }else if(reqUrl === "/favicon.ico/" ){  /*读取图标*/
             fs.readFile('./static/img/logo.ico',function (err,data) {
                 if(err){
                     console.log('图标文件加载失败');
@@ -64,7 +64,7 @@ const server = function () {
             res.send('路由不存在');
         }
 
-    }
+    };
     /**
      * 定义app的get方法
      * @param methodName 访问url路径
@@ -80,8 +80,8 @@ const server = function () {
         }
         G._get[methodName] = callback;
         /*注册方法到G._get中*/
-        console.log(`_get url [${methodName}] reg`);
-    }
+        console.log(`get method url [${methodName}] reg`);
+    };
     /**
      * 定义app的post方法
      * @param methodName
@@ -97,11 +97,11 @@ const server = function () {
         }
         G._post[methodName] = callback;
         /*注册方法到G._post中*/
-        console.log(`_post url [${methodName}] reg`);
-    }
+        console.log(`post method url [${methodName}] reg`);
+    };
 
     return app;
-}
+};
 
 module.exports = server();
 
